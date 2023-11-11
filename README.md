@@ -33,3 +33,4 @@ Currently, two official plugins are available:
     --8. npm i react-router-dom
     --9.  npm install @headlessui/react
     --10. npm install react-icons --save
+    --11. npm i react-tabs
