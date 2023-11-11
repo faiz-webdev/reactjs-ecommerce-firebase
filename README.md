@@ -34,3 +34,4 @@ Currently, two official plugins are available:
     --9.  npm install @headlessui/react
     --10. npm install react-icons --save
     --11. npm i react-tabs
+    --12. npm install @reduxjs/toolkit react-redux
