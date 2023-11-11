@@ -1,11 +1,10 @@
 import Layout from "../../components/layout/Layout";
-import myContext from "../../context/data/myContext";
-import { useContext } from "react";
+import HeroSection from "../../components/heroSection/HeroSection";
 
 function Home() {
   return (
     <Layout>
-      <h1>Home page</h1>
+      <HeroSection />
     </Layout>
   );
 }
