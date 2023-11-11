@@ -30,4 +30,6 @@ Currently, two official plugins are available:
             @tailwind utilities;``
     --7. Run your build process with npm run dev.
         `npm run dev`
-    8. npm i react-router-dom
+    --8. npm i react-router-dom
+    --9.  npm install @headlessui/react
+    --10. npm install react-icons --save

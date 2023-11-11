@@ -1,13 +1,23 @@
+import { useState } from "react";
 import MyContext from "./myContext";
 
 function myState(props) {
-  const state = {
-    name: "Faiz",
-    rollNumber: 123,
+  const [mode, setMode] = useState("light");
+
+  const toggleMode = () => {
+    if (mode === "light") {
+      setMode("dark");
+      document.body.style.backgroundColor = "rgba(17, 24, 39)";
+    } else {
+      setMode("light");
+      document.body.style.backgroundColor = "white";
+    }
   };
 
   return (
-    <MyContext.Provider value={state}>{props.children}</MyContext.Provider>
+    <MyContext.Provider value={{ mode, toggleMode }}>
+      {props.children}
+    </MyContext.Provider>
   );
 }
 
