@@ -61,6 +61,10 @@ function myState(props) {
       getProductData();
       // closeModal();
       setLoading(false);
+
+      setTimeout(() => {
+        window.location.href = "dashboard";
+      }, 800);
     } catch (error) {
       console.log(error);
       setLoading(false);
