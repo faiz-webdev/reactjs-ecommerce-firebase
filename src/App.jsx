@@ -3,6 +3,7 @@ import {
   Route,
   Routes,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Order from "./pages/order/Order";
@@ -94,6 +95,6 @@ const ProtectedRouteForAdmin = ({ children }) => {
   if (admin?.user?.email === "admin@mail.com") {
     return children;
   } else {
-    <Navigate to={"/login"} />;
+    return <Navigate to={"/login"} />;
   }
 };
