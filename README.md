@@ -36,3 +36,4 @@ Currently, two official plugins are available:
     --11. npm i react-tabs
     --12. npm install @reduxjs/toolkit react-redux
     --13. npm install firebase
+    --14. npm i react-toastify
