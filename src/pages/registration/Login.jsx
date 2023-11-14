@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import Loader from "../../components/loader/Loader";
 import LoadingScreen from "../../components/loader/LoadingScreen";
 import { useForm } from "react-hook-form";
-import "../../assets/sass/style.scss";
 
 function Login() {
   const context = useContext(myContext);
