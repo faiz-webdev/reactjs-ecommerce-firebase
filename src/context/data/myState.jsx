@@ -5,9 +5,12 @@ import {
   Timestamp,
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   onSnapshot,
   orderBy,
   query,
+  setDoc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { fireDB } from "../../firebase/FirebaseConfig";
@@ -93,6 +96,39 @@ function myState(props) {
     }
   };
 
+  //update product
+  const editHandle = (item) => {
+    setProducts(item);
+  };
+
+  const updateProduct = async () => {
+    try {
+      setLoading(true);
+      await setDoc(doc(fireDB, "products", products?.id), products);
+      toast.success("Product updated successfully");
+      getProductData();
+      setLoading(false);
+      window.location.href = "/dashboard";
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
+    setProducts("");
+  };
+
+  const deleteProduct = async (item) => {
+    try {
+      setLoading(true);
+      await deleteDoc(doc(fireDB, "products", item?.id));
+      toast.success("Product deleted successfully");
+      setLoading(false);
+      await getProductData();
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getProductData();
   }, []);
@@ -108,6 +144,9 @@ function myState(props) {
         setProducts,
         addProduct,
         product,
+        editHandle,
+        updateProduct,
+        deleteProduct
       }}
     >
       {props.children}

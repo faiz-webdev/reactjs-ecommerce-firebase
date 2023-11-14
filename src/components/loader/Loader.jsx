@@ -1,8 +1,8 @@
-import React from "react";
+import "./LoadingScreen.css";
 
 function Loader() {
   return (
-    <div>
+    <div className="loading-screen">
       <div
         role="status"
         className="absolute top-0 right-0 bottom-0 left-0 m-auto w-[3em] h-10 md:h-32 z-50"
