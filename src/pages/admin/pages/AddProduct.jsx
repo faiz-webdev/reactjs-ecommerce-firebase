@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
 import myContext from "../../../context/data/myContext";
+import Loader from "../../../components/loader/Loader";
 
 function AddProduct() {
   const context = useContext(myContext);
-  const { products, setProducts, addProduct } = context;
+  const { products, setProducts, addProduct, loading } = context;
 
   return (
     <div>
+      {loading && <Loader />}
       <div className=" flex justify-center items-center h-screen">
         <div className=" bg-gray-800 px-10 py-10 rounded-xl ">
           <div className="">

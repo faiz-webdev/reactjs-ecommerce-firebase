@@ -1,0 +1,9 @@
+@import "utilities/variable";
+@import "utilities/mixins";
+@import "utilities/global";
+
+.login-form-error-msg {
+    color: red;
+    font-weight: 600;
+    margin-bottom: 5px;
+}

@@ -37,3 +37,4 @@ Currently, two official plugins are available:
     --12. npm install @reduxjs/toolkit react-redux
     --13. npm install firebase
     --14. npm i react-toastify
+    --15. npm install react-hook-form
