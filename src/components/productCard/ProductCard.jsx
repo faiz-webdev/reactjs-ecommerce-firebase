@@ -1,9 +1,25 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import myContext from "../../context/data/myContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../redux/cartSlice";
+import { toast } from "react-toastify";
 
 function ProductCard() {
   const context = useContext(myContext);
   const { mode, product } = context;
+
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart);
+
+  const addCart = (product) => {
+    dispatch(addToCart(product));
+    toast.success("Item added to cart");
+  };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-8 md:py-16 mx-auto">
@@ -34,7 +50,7 @@ function ProductCard() {
                       <img
                         className=" rounded-2xl w-full h-80 p-2 hover:scale-110 transition-scale-110  duration-300 ease-in-out"
                         src={
-                           imageUrl ? imageUrl : "https://dummyimage.com/720x400"
+                          imageUrl ? imageUrl : "https://dummyimage.com/720x400"
                         }
                         alt="product"
                       />
@@ -61,6 +77,7 @@ function ProductCard() {
                       </p>
                       <div className=" flex justify-center">
                         <button
+                          onClick={() => addCart(item)}
                           type="button"
                           className="focus:outline-none text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full  py-2"
                         >

@@ -5,6 +5,7 @@ import { FiSun } from "react-icons/fi";
 import { Fragment, useContext, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { RxCross2 } from "react-icons/rx";
+import { useSelector } from "react-redux";
 
 function Navbar() {
   const context = useContext(myContext);
@@ -17,6 +18,8 @@ function Navbar() {
     localStorage.clear("user");
     window.location.href = "/login";
   };
+
+  const cateItems = useSelector((state)=>state.cart)
 
   return (
     <div className="bg-white sticky top-0 z-50  ">
@@ -310,7 +313,7 @@ function Navbar() {
                       className="ml-2 text-sm font-medium text-gray-700 group-"
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
-                      0
+                      {cateItems.length}
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
                   </Link>

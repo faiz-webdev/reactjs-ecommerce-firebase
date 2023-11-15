@@ -6,4 +6,8 @@ export const store = configureStore({
     cart: cartSlice,
   },
   devTools: true,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
