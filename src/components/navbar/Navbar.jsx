@@ -13,13 +13,15 @@ function Navbar() {
   const [open, setOpen] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
+  const admin = JSON.parse(localStorage.getItem("currentAdmin"));
 
   const logout = () => {
     localStorage.clear("user");
+    localStorage.clear("currentAdmin");
     window.location.href = "/login";
   };
 
-  const cateItems = useSelector((state)=>state.cart)
+  const cateItems = useSelector((state) => state.cart);
 
   return (
     <div className="bg-white sticky top-0 z-50  ">
