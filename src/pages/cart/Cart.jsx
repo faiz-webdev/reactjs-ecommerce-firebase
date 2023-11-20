@@ -5,6 +5,8 @@ import Modal from "../../components/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFromCart } from "../../redux/cartSlice";
 import { toast } from "react-toastify";
+import { addDoc, collection } from "firebase/firestore";
+import { fireDB } from "../../firebase/FirebaseConfig";
 
 function Cart() {
   const context = useContext(myContext);
@@ -33,12 +35,89 @@ function Cart() {
     });
     setTotalAmount(temp);
 
-    console.log(temp);
   }, [cartItems]);
 
   const shipping = parseInt(100);
 
   const grandTotal = shipping + totalAmount;
+
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [pinCode, setPinCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const buyNow = async () => {
+    if (name === "" || address === "" || phoneNumber === "" || pinCode === "") {
+      toast.error("All fireds are required", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+
+    const addressInfo = {
+      name,
+      address,
+      pinCode,
+      phoneNumber,
+      date: new Date().toLocaleString("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+      }),
+    };
+
+    var options = {
+      key: "",
+      key_secret: "",
+      amount: parseInt(grandTotal * 100),
+      currency: "INR",
+      order_receipt: "order_rcptid_" + name,
+      name: "E-Bharat",
+      description: "for testing purpose",
+      handler: function (response) {
+        console.log(response);
+        toast.success("Payment Successful");
+
+        const paymentId = response.razorpay_payment_id;
+
+        // store in firebase
+        const orderInfo = {
+          cartItems,
+          addressInfo,
+          date: new Date().toLocaleString("en-US", {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+          }),
+          email: JSON.parse(localStorage.getItem("user")).user.email,
+          userid: JSON.parse(localStorage.getItem("user")).user.uid,
+          paymentId,
+        };
+        console.log(orderInfo);
+
+        try {
+          const orderRef = collection(fireDB, "order");
+          addDoc(orderRef, orderInfo);
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    var pay = new window.Razorpay(options);
+    pay.open();
+    console.log(pay);
+  };
 
   return (
     <Layout>
@@ -168,7 +247,17 @@ function Cart() {
               </div>
             </div>
             {/* <Modal  /> */}
-            <Modal />
+            <Modal
+              name={name}
+              address={address}
+              pincode={pinCode}
+              phoneNumber={phoneNumber}
+              setName={setName}
+              setAddress={setAddress}
+              setPincode={setPinCode}
+              setPhoneNumber={setPhoneNumber}
+              buyNow={buyNow}
+            />
           </div>
         </div>
       </div>
